@@ -1,0 +1,16 @@
+#!markdown
+
+<h1  style="text-align:center"><u><b>C# new features</b></u></h1>
+
+
+<h3  style="text-align:center">What are the new C# language features after C# version 5.O </h3>
+
+<p style="text-align:center"> <img style="text-align:center" src="./images/versions.png" > </p>
+
+#!markdown
+
+While C# may have started as a generic Object-Oriented (OO) language, C# version 2.0 changed that in a hurry. Once they had their feet under them, they went after some serious developer pain points. And they went after them in a significant way.
+
+#!csharp
+
+Console.WriteLine("10")
