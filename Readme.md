@@ -8,4 +8,4 @@
 
 &nbsp;
 
-![](./images/plugin.png)
+![](https://github.com/csandun/CSharpNewFeatures/blob/master/images/plugin.PNG)
