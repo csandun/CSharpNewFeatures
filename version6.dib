@@ -21,22 +21,15 @@
 
 ## 1.  Static Imports
 
-#!markdown
-
-##### C# 5.0
-
 #!csharp
 
-// C#5
+/*
+// C# 5
 using System;
 
 Console.WriteLine("Hello World!");
+*/
 
-#!markdown
-
-##### C# 6.0
-
-#!csharp
 
 // C#6
 using static System.Console;
@@ -86,18 +79,6 @@ class Person {
     public Address Address { get; set; }
 }
 
-var p = new Person {
-    Name = "John",
-    Age = 30,
-    Address = new Address {
-        Street = "123 Main St",
-        City = "Anytown",
-        State = "NY",
-        Date = new DateTime(2010, 1, 1)
-    }
-};
-
-// previous C# code null check
 var p0 = new Person {
     Name = "John",
     Age = 30,
@@ -110,14 +91,18 @@ var p0 = new Person {
 };
 
 // C# 5 or above
-if(p0 != null && p0.Address != null && p0.Address.Date != null) {
+if (p0 != null && p0.Address != null && p0.Address.Date != null)
+{
     WriteLine(p0.Address.Date);
-}else{
-    WriteLine("No date");
+}
+else
+{
+    WriteLine(new DateTime(1990, 01, 01));
 }
 
 // c# 6
-Console.WriteLine("Test1 - "+ p1?.Address?.Date ?? "NO DATE");
+var date = p0?.Address?.Date ?? new DateTime(1990,01,01);
+Console.WriteLine("Test1 - " + date);
 
 #!markdown
 
