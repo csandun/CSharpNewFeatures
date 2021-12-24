@@ -4,8 +4,258 @@
 
 #!markdown
 
-While C# may have started as a generic Object-Oriented (OO) language, C# version 2.0 changed that in a hurry. Once they had their feet under them, they went after some serious developer pain points. And they went after them in a significant way.
+* released many smaller features that made C# programming more productive.
+
+##### Main features
+* Static imports 
+* String interpolation 🚨
+* Null propagator 🚨
+* Auto-property initializers
+* Expression bodied members 🚨
+* Index initializers
+* nameof operator
+* Exception filters 🚨
+ and etc.
+
+#!markdown
+
+## 1.  Static Imports
+
+#!markdown
+
+##### C# 5.0
 
 #!csharp
 
-Console.WriteLine("10")
+// C#5
+using System;
+
+Console.WriteLine("Hello World!");
+
+#!markdown
+
+##### C# 6.0
+
+#!csharp
+
+// C#6
+using static System.Console;
+using static System.Math;
+
+WriteLine("Hello World!");
+WriteLine("square root of 4 is {0}", Sqrt(4));
+
+#!markdown
+
+## 2. 🚨 String Interpolation
+
+#!csharp
+
+int a  = 10;
+int b = 20;
+
+int result = a + b;
+
+// c# 5 string formatting
+Console.WriteLine("{0} + {1} = {2}", a, b, result);
+Console.WriteLine(string.Format("{0} + {1} = {2}", a, b, result));
+
+// C# 6 string interpolation
+Console.WriteLine($"{a} + {b} = {result}");
+
+#!markdown
+
+## 3. 🚨 Null conditional operation
+
+* Operator ?.
+* Operator ??
+
+#!csharp
+
+class Address
+{
+    public string Street { get; set; }
+    public string City { get; set; }
+    public string State { get; set; }
+    public DateTime? Date {get; set;}
+}
+
+class Person {
+    public string Name { get; set; }
+    public int Age { get; set; }
+    public Address Address { get; set; }
+}
+
+var p = new Person {
+    Name = "John",
+    Age = 30,
+    Address = new Address {
+        Street = "123 Main St",
+        City = "Anytown",
+        State = "NY",
+        Date = new DateTime(2010, 1, 1)
+    }
+};
+
+// previous C# code null check
+var p0 = new Person {
+    Name = "John",
+    Age = 30,
+    Address = new Address {
+        Street = "123 Main St",
+        City = "Anytown",
+        State = "NY",
+        Date = new DateTime(2022, 1, 1)
+    }
+};
+
+// C# 5 or above
+if(p0 != null && p0.Address != null && p0.Address.Date != null) {
+    WriteLine(p0.Address.Date);
+}else{
+    WriteLine("No date");
+}
+
+// c# 6
+Console.WriteLine("Test1 - "+ p1?.Address?.Date ?? "NO DATE");
+
+#!markdown
+
+## 4. Auto Property Initializers
+
+#!markdown
+
+## 5. 🚨 Expression bodied functions and Properties
+
+* Can be return or not  a single line of expression with **=>** big arrow operator.
+
+#!csharp
+
+// c# 5
+public int AddCsharp5(int a, int b) 
+{
+    return a + b ;
+}
+
+
+//C#6
+public int Addsharp6(int a, int b) => a + b;
+
+#!markdown
+
+## 6. Dictionary Initializers
+
+### Index initializers
+
+#!csharp
+
+//  up to C# 5
+Dictionary<string, int> dict5 = new Dictionary<string, int>()
+{
+    {"one", 1},
+    {"two", 2},
+    {"three", 3}
+};
+
+
+// C# 6
+Dictionary<string, int> dict6 = new Dictionary<string, int>()
+{
+    ["one"] = 1,
+    ["two"] = 2,
+    ["three"] = 3
+};
+
+#!markdown
+
+## 7. Literals and Separators
+
+#!csharp
+
+// Separators
+long longNumber  = 100_000_000_000;
+Console.WriteLine(longNumber);
+
+
+// literals
+byte code = 0b1010101;
+Console.WriteLine(code);
+
+#!markdown
+
+## 8. nameof()
+
+#!csharp
+
+class Address
+{
+    public string Street { get; set; }
+    public string City { get; set; }
+    public string State { get; set; }
+    public DateTime? Date {get; set;}
+}
+var addressProperty = new Address {
+    Street = "123 Main St",
+    City = "Anytown",
+    State = "NY",
+    Date = null
+};
+
+// Abouve C# 5
+if(addressProperty.Date == null)
+{
+    Console.WriteLine("Date is null");
+}
+
+// C# 6
+if(addressProperty.Date == null)
+{
+    Console.WriteLine($"{nameof(addressProperty.Date)} is null");
+}
+
+#!markdown
+
+## 9. 🚨 Exception filters
+
+ ```when``` can be used in a ```catch``` statement to specify a condition that must be true for the handler for a specific exception to execute.
+
+##### Syntax
+```catch (ExceptionType [e]) when (expr)```
+
+#!csharp
+
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+
+public static async Task<string> MakeRequest()
+{
+    var client = new HttpClient();
+    var streamTask = client.GetStringAsync("https://localHost:10000");
+    try
+    {
+        var responseText = await streamTask;
+        return responseText;
+    }
+    catch (HttpRequestException e) when (e.Message.Contains("301"))
+    {
+        return "Site Moved";
+    }
+    catch (HttpRequestException e) when (e.Message.Contains("404"))
+    {
+        return "Page Not Found";
+    }
+    catch (HttpRequestException e)
+    {
+        return e.Message;
+    }
+}
+
+#!markdown
+
+## 10. ect...
+
+### References
+* [Plurasight - 
+What's New in C# 6](https://app.pluralsight.com/library/courses/csharp-6-whats-new/table-of-contents)
+* [Microsoft Docs](https://docs.microsoft.com/en-us/xamarin/cross-platform/platform/csharp-six)
