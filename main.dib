@@ -10,7 +10,40 @@
 #!markdown
 
 # Intro
+- Tuples
+- Record Types
+- Pattern Matching & Switch Expressions
+- Out Variables
+- Null conditional operation && Null-Coalescing Assignment
+
+#!markdown
+
+## Tuples - C# 7.0
+
+** Returns multiple values  **
+
+In C# older versions , you can return values using below syntaxes
+    - nomal return with object or array
+    - Tuple<t1,t2>
+    - out params
 
 #!csharp
 
-Console.WriteLine("10")
+public (int min, int maxm, double avg) GetMinMax(int a, int b)
+{
+    int min = a;
+    int max = b;
+    if (a > b)
+    {
+        min = b;
+        max = a;
+    }
+
+    double avg = (double)((a + b )/ 2);
+    return (min, max, avg);
+}
+(int min, int max, double avg)= GetMinMax(20,30);
+
+//var (min, max, avg) = GetMinMax(20,30);
+
+Console.WriteLine($"min is {min}; max is {max}; avg is {avg}");
