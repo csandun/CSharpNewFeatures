@@ -20,12 +20,55 @@
 
 ## Tuples - C# 7.0
 
-** Returns multiple values  **
+ **Returns multiple values**
 
 In C# older versions , you can return values using below syntaxes
-    - nomal return with object or array
-    - Tuple<t1,t2>
-    - out params
+- nomal return with object or array
+- Tuple<T1,T2>
+- out params
+
+#!markdown
+
+How to use Output 
+
+#!csharp
+
+public int GetPersonNameAgeWithId(out string name, out int age)
+{
+    name = "chathuranga";
+    age = 30;
+    return 3236;
+}
+
+// before C# 7.0
+// var name = String.Empty; 
+// var age = 0;
+// var id = GetPersonNameAgeWithId(out name,out age );
+// Console.WriteLine($"{id} {name} {age}");
+
+
+//c# 7.0 - inline output parameter 
+ var id = GetPersonNameAgeWithId(out string name, out var age);
+ Console.WriteLine($"{id} {name} {age}");
+
+#!markdown
+
+**How to use Tuple<T1,T2>**
+
+#!csharp
+
+public Tuple<int, string, int> GetPersonNameAgeWithIdUsingTuple()
+{
+    return Tuple.Create(3236, "chathuranga", 30);
+}
+
+var result = GetPersonNameAgeWithIdUsingTuple();
+
+Console.WriteLine($"{result.Item1} {result.Item2} {result.Item3}");
+
+#!markdown
+
+**Tuples in current language**
 
 #!csharp
 
@@ -47,3 +90,76 @@ public (int min, int maxm, double avg) GetMinMax(int a, int b)
 //var (min, max, avg) = GetMinMax(20,30);
 
 Console.WriteLine($"min is {min}; max is {max}; avg is {avg}");
+
+#!markdown
+
+**References**
+- 
+
+#!markdown
+
+## Record Types - C# 9.0
+
+Immutable  reference types with default implementations generated with minimal code
+
+#!csharp
+
+public record Person (string Name, int Age, string Address);
+
+var p1 = new Person("John", 30, "Colombo");
+
+Console.WriteLine(p1);
+
+Console.WriteLine($"{p1.Name} is {p1.Age} years old");
+
+#!markdown
+
+**Check actual code using SharpLabs**
+ [Link](https://sharplab.io/).
+
+#!markdown
+
+**Extending record features, Deconstruct record , override to string... etc**
+
+#!csharp
+
+public record Person (string Name, int Age, string Address)
+{
+    public void Deconstruct(out string name, out string address) 
+    {
+        name = Name;
+        address = Address;
+    }
+
+    public override string ToString()
+    {
+        return $"{Name} is {Age} years old - record tostring overriden";
+    }
+};
+
+var p1 = new Person("John", 30, "Colombo");
+Console.WriteLine($"{p1.Name} is {p1.Age} years old");
+
+
+// deconstruct
+(string name,int age, string address)  = p1;
+Console.WriteLine($"{name} is {age} years old");
+
+//deconstruct
+var (p1Name,  adre) = p1;
+Console.WriteLine($"{p1Name}");
+
+Console.WriteLine(p1);
+
+#!markdown
+
+Check Equality of two records
+
+#!csharp
+
+var p1 = new Person("John", 30, "Colombo");
+var p2 = new Person("Mary", 25, "Kandy");
+var p3 = new Person("John", 30, "Colombo");
+
+Console.WriteLine(p1 == p3); //true
+Console.WriteLine(Object.ReferenceEquals(p1, p3)); // false
